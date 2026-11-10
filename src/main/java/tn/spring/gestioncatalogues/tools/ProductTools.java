@@ -103,34 +103,20 @@ public class ProductTools {
             return statistiques;
         }
 
-        // 3. Calculer le nombre total de produits
-        long total = produits.size();
-
-        // 4. Calculer le prix moyen
-        double prixMoyen = produits.stream()
-                .mapToDouble(Produit::getPrix)
-                .average()
-                .orElse(0.0);
-
-        // 5. Trouver le produit le plus cher
-        Produit produitPlusCher = produits.stream()
-                .max(Comparator.comparingDouble(Produit::getPrix))
-                .orElse(null);
-
-        // 6. Trouver le produit le moins cher
-        Produit produitMoinsCher = produits.stream()
-                .min(Comparator.comparingDouble(Produit::getPrix))
-                .orElse(null);
-
-        // 7. Construire la Map des statistiques
         Map<String, Object> statistiques = new HashMap<>();
 
-        statistiques.put("total", total);
-        statistiques.put("prixMoyen", prixMoyen);
-        statistiques.put("produitPlusCher", produitPlusCher);
-        statistiques.put("produitMoinsCher", produitMoinsCher);
+        statistiques.put("total", produits.size());
+        statistiques.put("prixMoyen", produits.stream()
+                .mapToDouble(Produit::getPrix)
+                .average()
+                .orElse(0.0));
+        statistiques.put("produitPlusCher", produits.stream()
+                .max(Comparator.comparingDouble(Produit::getPrix))
+                .orElse(null));
+        statistiques.put("produitMoinsCher", produits.stream()
+                .min(Comparator.comparingDouble(Produit::getPrix))
+                .orElse(null));
 
-        // 8. Retourner les statistiques
         return statistiques;
     }
 

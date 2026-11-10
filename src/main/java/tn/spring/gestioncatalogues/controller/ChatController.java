@@ -30,7 +30,7 @@ public class ChatController {
                 .build();
     }
 
-    @GetMapping("/chat")
+    @GetMapping("/agent")
     public String chat(@RequestParam String message){
         return chatClient.prompt()
                 .user(message)
