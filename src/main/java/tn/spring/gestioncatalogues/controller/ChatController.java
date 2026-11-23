@@ -3,15 +3,18 @@ package tn.spring.gestioncatalogues.controller;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tn.spring.gestioncatalogues.tools.ProductTools;
 
+@CrossOrigin(origins = "http://localhost:4400")
 @RestController
 public class ChatController {
     private ChatClient chatClient;
-    public ChatController(ChatClient.Builder chatclient, ChatMemory chatMemory, ProductTools productTools){
+    public ChatController(ChatClient.Builder chatclient, ChatMemory chatMemory, SyncMcpToolCallbackProvider productTools){
         this.chatClient = chatclient
                 .defaultAdvisors(
                         a->a.advisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
